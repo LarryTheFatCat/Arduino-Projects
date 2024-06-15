@@ -5,11 +5,6 @@
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
-#define echoPin 13
-#define trigPin 12
-long duration;
-int distance;
-
 int weightMeasure = A1;
 int servoPin = A3;
 int pos = 0;
@@ -45,8 +40,6 @@ void setup() {
   delay(500);
   lcd.clear();
   lcd.print("Enter Password: " + passwordInput);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
   pinMode(ir_pin, INPUT);
 }
 
@@ -58,12 +51,6 @@ void loop() {
   // Print IR sensor value for debugging
   Serial.println(irRead);
 
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration - 10) * 0.034 / 2;
 
   if (irRead == 0) {
     lcd.clear();
@@ -127,9 +114,9 @@ void loop() {
 }
 
 void lockVault() {
-  return servo.write(75);
+  return servo.write(55);
 }
 
 void unlockVault() {
-  return servo.write(120);
+  return servo.write(0);
 }
